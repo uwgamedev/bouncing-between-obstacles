@@ -8,6 +8,7 @@ var score := 0:
 
 func _ready():
 	get_tree().paused = true
+	%StartButton.grab_focus()
 
 
 func game_over():
@@ -16,6 +17,7 @@ func game_over():
 	$LoseSound.play()
 	$BackgroundMusicGame.playing = false
 	$BackgroundMusicEnd.playing = true
+	%RetryButton.grab_focus()
 
 
 func _on_player_obstacle_hit():
