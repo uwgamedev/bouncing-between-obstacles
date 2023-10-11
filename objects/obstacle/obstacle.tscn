@@ -1,0 +1,104 @@
+[gd_scene load_steps=8 format=3 uid="uid://dtfl16t40axr3"]
+
+[ext_resource type="Script" path="res://objects/obstacle/obstacle.gd" id="1_1dr7p"]
+[ext_resource type="Texture2D" uid="uid://c7b1b5pvow4yr" path="res://icon.svg" id="1_lahrd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lvm78"]
+size = Vector2(128, 1280)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h8jem"]
+size = Vector2(128, 600)
+
+[sub_resource type="Animation" id="Animation_tetwn"]
+resource_name = "slide_to_left"
+length = 24.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 24),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-5120, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(24),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_3mpa1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_at5t7"]
+_data = {
+"RESET": SubResource("Animation_3mpa1"),
+"slide_to_left": SubResource("Animation_tetwn")
+}
+
+[node name="ObstacleStart" type="Node2D"]
+script = ExtResource("1_1dr7p")
+
+[node name="Obstacle" type="Node2D" parent="."]
+
+[node name="ObstacleArea" type="Area2D" parent="Obstacle" groups=["obstacles"]]
+unique_name_in_owner = true
+
+[node name="CollisionShapeUpper" type="CollisionShape2D" parent="Obstacle/ObstacleArea"]
+position = Vector2(0, -800)
+shape = SubResource("RectangleShape2D_lvm78")
+
+[node name="Sprite" type="Sprite2D" parent="Obstacle/ObstacleArea/CollisionShapeUpper"]
+texture_repeat = 2
+texture = ExtResource("1_lahrd")
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 1280)
+
+[node name="CollisionShapeLower" type="CollisionShape2D" parent="Obstacle/ObstacleArea"]
+position = Vector2(0, 800)
+shape = SubResource("RectangleShape2D_lvm78")
+
+[node name="Sprite" type="Sprite2D" parent="Obstacle/ObstacleArea/CollisionShapeLower"]
+texture_repeat = 2
+texture = ExtResource("1_lahrd")
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 1280)
+
+[node name="ScoreArea" type="Area2D" parent="Obstacle" groups=["scores"]]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacle/ScoreArea"]
+position = Vector2(128, 0)
+shape = SubResource("RectangleShape2D_h8jem")
+debug_color = Color(0, 0.639216, 0.372549, 0.419608)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Obstacle")
+autoplay = "slide_to_left"
+libraries = {
+"": SubResource("AnimationLibrary_at5t7")
+}

@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=3 uid="uid://ba85mva2phgdm"]
+
+[ext_resource type="Texture2D" uid="uid://c7b1b5pvow4yr" path="res://icon.svg" id="1_jty48"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qe4cu"]
+size = Vector2(1280, 384)
+
+[sub_resource type="Animation" id="Animation_rjso4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GroundSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1280, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0l16e"]
+resource_name = "slide_to_left"
+length = 12.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GroundSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 12),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1280, 0), Vector2(-1280, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r18e0"]
+_data = {
+"RESET": SubResource("Animation_rjso4"),
+"slide_to_left": SubResource("Animation_0l16e")
+}
+
+[node name="Floor" type="Node2D"]
+
+[node name="Area2D" type="Area2D" parent="." groups=["obstacles"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_qe4cu")
+
+[node name="GroundSprite" type="Sprite2D" parent="."]
+texture_repeat = 2
+position = Vector2(1280, 0)
+scale = Vector2(1.00145, 1)
+texture = ExtResource("1_jty48")
+region_enabled = true
+region_rect = Rect2(0, 0, 10240, 384)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "slide_to_left"
+libraries = {
+"": SubResource("AnimationLibrary_r18e0")
+}
