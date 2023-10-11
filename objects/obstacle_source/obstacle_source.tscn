@@ -4,7 +4,7 @@
 
 [sub_resource type="Animation" id="Animation_wn6kv"]
 resource_name = "add_obstacle"
-length = 2.5
+length = 2.0
 loop_mode = 1
 tracks/0/type = "method"
 tracks/0/imported = false

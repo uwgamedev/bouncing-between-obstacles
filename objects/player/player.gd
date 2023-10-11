@@ -3,7 +3,7 @@ extends Area2D
 signal obstacle_hit
 signal score_hit
 
-var velocity := 0.0
+var velocity := -700.0  # start with a bounce
 
 func _physics_process(delta: float):
 	velocity += 1300.0 * delta  # gravitational acceleration

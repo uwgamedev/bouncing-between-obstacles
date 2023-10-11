@@ -9,6 +9,7 @@
 script = ExtResource("1_u1ke3")
 
 [node name="Player" parent="." instance=ExtResource("3_m37ko")]
+position = Vector2(-200, 0)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -16,3 +17,58 @@ script = ExtResource("1_u1ke3")
 
 [node name="Floor" parent="." instance=ExtResource("4_uodo6")]
 position = Vector2(-2, 650)
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_left = -360.0
+offset_top = -640.0
+offset_right = 360.0
+offset_bottom = -614.0
+theme_override_font_sizes/font_size = 50
+text = "0"
+horizontal_alignment = 1
+
+[node name="GameOverScreen" type="Node2D" parent="."]
+visible = false
+position = Vector2(0, 200)
+
+[node name="GameOverLabel" type="Label" parent="GameOverScreen"]
+offset_left = -150.0
+offset_top = -100.0
+offset_right = 150.0
+theme_override_font_sizes/font_size = 50
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RetryButton" type="Button" parent="GameOverScreen"]
+process_mode = 3
+offset_left = -75.0
+offset_right = 75.0
+offset_bottom = 80.0
+theme_override_font_sizes/font_size = 40
+text = "Retry"
+
+[node name="GameStartScreen" type="Node2D" parent="."]
+position = Vector2(0, 200)
+
+[node name="GameStartLabel" type="Label" parent="GameStartScreen"]
+offset_left = -150.0
+offset_top = -100.0
+offset_right = 150.0
+theme_override_font_sizes/font_size = 50
+text = "Ready?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartButton" type="Button" parent="GameStartScreen"]
+process_mode = 3
+offset_left = -75.0
+offset_right = 75.0
+offset_bottom = 80.0
+theme_override_font_sizes/font_size = 40
+text = "Start"
+
+[connection signal="obstacle_hit" from="Player" to="." method="_on_player_obstacle_hit"]
+[connection signal="score_hit" from="Player" to="." method="_on_player_score_hit"]
+[connection signal="pressed" from="GameOverScreen/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="GameStartScreen/StartButton" to="." method="_on_start_button_pressed"]
