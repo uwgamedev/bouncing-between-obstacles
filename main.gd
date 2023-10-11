@@ -25,6 +25,8 @@ func _on_player_obstacle_hit():
 func _on_player_score_hit():
 	score += 1
 	$ScoreSound.play()
+	if score % 10 == 0:
+		$Confetti.emitting = true
 
 
 func _on_retry_button_pressed():
