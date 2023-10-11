@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dtfl16t40axr3"]
+[gd_scene load_steps=9 format=3 uid="uid://dtfl16t40axr3"]
 
 [ext_resource type="Script" path="res://objects/obstacle/obstacle.gd" id="1_1dr7p"]
 [ext_resource type="Texture2D" uid="uid://c7b1b5pvow4yr" path="res://icon.svg" id="1_lahrd"]
@@ -8,6 +8,9 @@ size = Vector2(128, 1280)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h8jem"]
 size = Vector2(128, 600)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8aqhu"]
+size = Vector2(128, 128)
 
 [sub_resource type="Animation" id="Animation_3mpa1"]
 length = 0.001
@@ -60,44 +63,54 @@ _data = {
 "slide_to_left": SubResource("Animation_tetwn")
 }
 
-[node name="ObstacleStart" type="Node2D"]
+[node name="Obstacle" type="Node2D"]
 script = ExtResource("1_1dr7p")
 
-[node name="Obstacle" type="Node2D" parent="."]
+[node name="ObstacleMover" type="Node2D" parent="."]
 
-[node name="ObstacleArea" type="Area2D" parent="Obstacle" groups=["obstacles"]]
+[node name="ObstacleArea" type="Area2D" parent="ObstacleMover" groups=["obstacles"]]
 unique_name_in_owner = true
 
-[node name="CollisionShapeUpper" type="CollisionShape2D" parent="Obstacle/ObstacleArea"]
+[node name="CollisionShapeUpper" type="CollisionShape2D" parent="ObstacleMover/ObstacleArea"]
 position = Vector2(0, -800)
 shape = SubResource("RectangleShape2D_lvm78")
 
-[node name="Sprite" type="Sprite2D" parent="Obstacle/ObstacleArea/CollisionShapeUpper"]
+[node name="Sprite" type="Sprite2D" parent="ObstacleMover/ObstacleArea/CollisionShapeUpper"]
 texture_repeat = 2
 texture = ExtResource("1_lahrd")
 region_enabled = true
 region_rect = Rect2(0, 0, 128, 1280)
 
-[node name="CollisionShapeLower" type="CollisionShape2D" parent="Obstacle/ObstacleArea"]
+[node name="CollisionShapeLower" type="CollisionShape2D" parent="ObstacleMover/ObstacleArea"]
 position = Vector2(0, 800)
 shape = SubResource("RectangleShape2D_lvm78")
 
-[node name="Sprite" type="Sprite2D" parent="Obstacle/ObstacleArea/CollisionShapeLower"]
+[node name="Sprite" type="Sprite2D" parent="ObstacleMover/ObstacleArea/CollisionShapeLower"]
 texture_repeat = 2
 texture = ExtResource("1_lahrd")
 region_enabled = true
 region_rect = Rect2(0, 0, 128, 1280)
 
-[node name="ScoreArea" type="Area2D" parent="Obstacle" groups=["scores"]]
+[node name="ScoreArea" type="Area2D" parent="ObstacleMover" groups=["scores"]]
 unique_name_in_owner = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacle/ScoreArea"]
-position = Vector2(128, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObstacleMover/ScoreArea"]
+position = Vector2(200, 0)
 shape = SubResource("RectangleShape2D_h8jem")
 debug_color = Color(0, 0.639216, 0.372549, 0.419608)
 
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ObstacleMover/ScoreArea"]
+position = Vector2(128, 300)
+shape = SubResource("RectangleShape2D_8aqhu")
+debug_color = Color(0, 0.639216, 0.372549, 0.419608)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="ObstacleMover/ScoreArea"]
+position = Vector2(128, -300)
+shape = SubResource("RectangleShape2D_8aqhu")
+debug_color = Color(0, 0.639216, 0.372549, 0.419608)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../Obstacle")
+root_node = NodePath("../ObstacleMover")
 autoplay = "slide_to_left"
 libraries = {
 "": SubResource("AnimationLibrary_at5t7")

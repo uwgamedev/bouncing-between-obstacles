@@ -15,10 +15,8 @@ func _physics_process(delta: float):
 
 func _on_area_entered(area: Area2D):
 	if area.is_in_group(&"obstacles"):
-		print('obstacle')
 		emit_signal("obstacle_hit")
 	
 	if area.is_in_group(&"scores"):
-		print('score')
 		emit_signal("score_hit")
 
